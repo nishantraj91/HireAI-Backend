@@ -4,7 +4,7 @@ import ai_job_portal.security.JwtAuthenticationFilter;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 
@@ -39,7 +39,6 @@ public class SecurityConfig {
             HttpSecurity http) throws Exception {
 
         http
-                // .cors(cors -> {}) ko custom source se connect kiya
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
 
                 .csrf(csrf -> csrf.disable())
@@ -50,6 +49,8 @@ public class SecurityConfig {
                 )
 
                 .authorizeHttpRequests(auth -> auth
+                        // Browser ki OPTIONS request ko sabse pehle allow kiya
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
                         .requestMatchers(
                                 "/api/auth/**",
@@ -81,9 +82,9 @@ public class SecurityConfig {
         CorsConfiguration configuration =
                 new CorsConfiguration();
 
-        // Yahan localhost ke sath aapka live Vercel URL bhi allow kar diya hai
-        configuration.setAllowedOrigins(
-                List.of("http://localhost:5173", "https://hire-ai-black.vercel.app"));
+        // Strict URL ke badle patterns use kiya taki credentials block na ho
+        configuration.setAllowedOriginPatterns(
+                List.of("*"));
 
         configuration.setAllowedMethods(
                 List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
