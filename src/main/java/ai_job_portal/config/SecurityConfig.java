@@ -39,8 +39,8 @@ public class SecurityConfig {
             HttpSecurity http) throws Exception {
 
         http
-
-                .cors(cors -> {})
+                // .cors(cors -> {}) ko custom source se connect kiya
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
 
                 .csrf(csrf -> csrf.disable())
 
@@ -81,8 +81,9 @@ public class SecurityConfig {
         CorsConfiguration configuration =
                 new CorsConfiguration();
 
+        // Yahan localhost ke sath aapka live Vercel URL bhi allow kar diya hai
         configuration.setAllowedOrigins(
-                List.of("http://localhost:5173"));
+                List.of("http://localhost:5173", "https://hire-ai-black.vercel.app"));
 
         configuration.setAllowedMethods(
                 List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
