@@ -1,13 +1,10 @@
 spring:
   datasource:
-   # Update this specific URL line
-    # Replace the old URL with this forced SSL ignore connection string
-    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/defaultdb?useSSL=false&allowPublicKeyRetrieval=true&autoReconnect=true
+    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/defaultdb?sslMode=REQUIRED&allowPublicKeyRetrieval=true
     username: ${DB_USER}
     password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
-    database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: update
     show-sql: true
