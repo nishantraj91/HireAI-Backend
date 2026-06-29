@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://${DB_HOST:mysql-nisha91-nisha91-khairi.aivencloud.com}:${DB_PORT:25211}/defaultdb?sslMode=REQUIRED&allowPublicKeyRetrieval=true
-    username: ${avnadmin}
-    password: ${AVNS_1sh-uZgjxSwHL62m3yW}
+    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/defaultdb?sslMode=REQUIRED&allowPublicKeyRetrieval=true
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     properties:
